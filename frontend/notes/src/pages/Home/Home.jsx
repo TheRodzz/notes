@@ -143,7 +143,7 @@ const Home = () => {
               isPinned={item.isPinned}
               onEdit={() => { handleEdit(item) }}
               onDelete={() => { deleteNote(item) }}
-              onPinNote={() => { updateIsPinned(item  ) }}
+              onPinNote={() => { updateIsPinned(item) }}
             />
           ))}
 

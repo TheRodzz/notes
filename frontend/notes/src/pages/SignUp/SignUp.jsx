@@ -12,15 +12,15 @@ const SignUp = () => {
   const navigate = useNavigate();
   const handleSignUp = async (e) => {
     e.preventDefault();
-    if(!name) {
+    if (!name) {
       setError("Please enter your name");
       return;
     }
-    if(!validateEmail(email)) {
+    if (!validateEmail(email)) {
       setError("Please enter a valid email");
       return;
     }
-    if(!password) {
+    if (!password) {
       setError("Please enter your password");
       return;
     }
@@ -30,33 +30,33 @@ const SignUp = () => {
 
     try {
       const response = await axiosInstance.post('/create-account', {
-          fullName: name,
-          email: email,
-          password: password,
+        fullName: name,
+        email: email,
+        password: password,
       });
-      
-      if(response.data && response.data.error){
+
+      if (response.data && response.data.error) {
         setError(response.data.message);
         return;
       }
 
       if (response.data && response.data.accessToken) {
-          localStorage.setItem('token', response.data.accessToken);
-          navigate('/dashboard');
+        localStorage.setItem('token', response.data.accessToken);
+        navigate('/dashboard');
       }
 
-  } catch (error) {
+    } catch (error) {
       if (error.response && error.response.data && error.response.data.message) {
-          setError(error.response.data.message);
+        setError(error.response.data.message);
       }
       else {
-          setError('An unexpected error occured');
+        setError('An unexpected error occured');
       }
-  }
+    }
   };
   return (
     <>
-      <Navbar />
+      {/* <Navbar /> */}
       <div className='flex items-center justify-center mt-28'>
         <div className='w-96 border rounded bg-white px-7 py-10'>
           <form onSubmit={handleSignUp}>
@@ -72,7 +72,8 @@ const SignUp = () => {
               value={email}
               onChange={(e) => setEmail(e.target.value)} />
             <PasswordInput value={password}
-              onChange={(e) => setPassword(e.target.value)} />
+              onChange={(e) => setPassword(e.target.value)}
+              placeholder={null}/>
             {error && <p className='text-red-500 text-xs pb-1'>{error}</p>}
             <button type='submit'
               className='btn-primary'

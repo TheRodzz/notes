@@ -44,7 +44,7 @@ const Login = () => {
     };
     return (
         <>
-            <Navbar userInfo={null} />
+            {/* <Navbar userInfo={null} /> */}
             <div className='flex items-center justify-center mt-28'>
                 <div className='w-96 border rounded bg-white px-7 py-10'>
                     <form onSubmit={handleLogin}>
@@ -55,7 +55,8 @@ const Login = () => {
                             value={email}
                             onChange={(e) => setEmail(e.target.value)} />
                         <PasswordInput value={password}
-                            onChange={(e) => setPassword(e.target.value)} />
+                            onChange={(e) => setPassword(e.target.value)}
+                            palceholder={null} />
                         {error && <p className='text-red-500 text-xs pb-1'>{error}</p>}
                         <button type='submit'
                             className='btn-primary'
