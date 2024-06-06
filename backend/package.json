@@ -1,11 +1,12 @@
 {
   "name": "notes-app-backend",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon index.js"
+    "start": "nodemon index.js",
+    "build-client": "cd ../frontend/notes && npm install && npm run build",
+    "build": "npm install && npm run build-client"
   },
   "author": "",
   "license": "ISC",
@@ -16,5 +17,8 @@
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.4.0",
     "nodemon": "^3.1.2"
-  }
+  },
+  "devDependencies": {},
+  "keywords": [],
+  "description": ""
 }
