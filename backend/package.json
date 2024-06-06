@@ -5,7 +5,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon index.js",
-    "build-client": "cd ../frontend/notes && npm install && npm run build",
+    "build-client": "npm install && npm run build",
     "build": "npm install && npm run build-client"
   },
   "author": "",
