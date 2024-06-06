@@ -1,1 +1,1 @@
-export const BASE_URL = 'https://notes-api-topaz.vercel.app'
+export const BASE_URL = process.env.BASE_URL
