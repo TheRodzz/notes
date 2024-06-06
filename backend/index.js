@@ -1,8 +1,8 @@
 require('dotenv').config()
-
+const env = process.env.ENV
 const config = require('./config.json');
 const mongoose = require('mongoose');
-
+const connectionString = env === 'deploy' ? process.env.connectionString : config.connectionString;
 mongoose.connect(config.connectionString);
 
 const User = require('./models/user.model');
@@ -22,12 +22,6 @@ app.use(
         origin: "*",
     })
 );
-app.use(express.static(path.join(__dirname, '../frontend/dist')));
-
-// Handle React routing, return all requests to React app
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../frontend/dist', 'index.html'));
-});
 
 app.post('/create-account', async (req, res) => {
     const { fullName, email, password } = req.body;
