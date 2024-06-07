@@ -11,6 +11,25 @@ import EmptyCard from '../../components/EmptyCard/EmptyCard'
 import noData from '../../assets/images/no-data.svg'
 import addNotesImg from '../../assets/images/add-notes.svg'
 
+const customStyles = {
+  overlay: {
+    backgroundColor: 'rgba(0, 0, 0, 0.6)', // Darken the overlay for better contrast
+    zIndex: 1000, // Ensure the modal is on top of other elements
+  },
+  content: {
+    width: '90%', // Default width for mobile
+    maxWidth: '500px', // Maximum width for larger screens
+    height: 'auto', // Adjust height automatically based on content
+    maxHeight: '80vh', // Maximum height to avoid overflow on small screens
+    margin: 'auto', // Center the modal
+    borderRadius: '10px', // Rounded corners
+    padding: '20px', // Padding inside the modal
+    backgroundColor: 'white', // Background color
+    boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)', // Drop shadow for lifted appearance
+    overflow: 'auto', // Enable scrolling for overflowing content
+  },
+};
+
 const Home = () => {
   const [openAddEditModal, setOpenAddEditModal] = useState({
     isShown: false,
@@ -81,7 +100,8 @@ const Home = () => {
       const response = await axiosInstance.delete('/delete-note/' + noteId);
       if (response.data && !response.data.error) {
         showToastMessage('Note deleted successfully', 'delete');
-        getAllNotes();
+        // getAllNotes();
+        setAllNotes(allNotes.filter(note => note._id !== noteId));
       }
     } catch (error) {
       if (error.response && error.response.data && error.response.data.message) {
@@ -164,11 +184,7 @@ const Home = () => {
       <Modal
         isOpen={openAddEditModal.isShown}
         onRequestClose={() => { }}
-        style={{
-          overlay: {
-            backgroundColor: 'rgba(0,0,0,0,2)',
-          },
-        }}
+        style={customStyles}
         contentLabel=''
         className='w-[40%] max-h-3/4 bg-white rounded-md mx-auto mt-14 p-5 overflow-scroll'
       >
