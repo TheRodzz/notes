@@ -1,15 +1,16 @@
-import React, { useEffect, useLayoutEffect, useState } from 'react'
-import Navbar from '../../components/Navbar/Navbar'
-import NoteCard from '../../components/Cards/NoteCard'
-import { MdAdd } from 'react-icons/md'
-import AddEditNotes from './AddEditNotes'
-import Modal from 'react-modal'
-import { useNavigate } from 'react-router-dom'
-import axiosInstance from '../../utils/axiosInstance'
-import Toast from '../../components/ToastMessage/Toast'
-import EmptyCard from '../../components/EmptyCard/EmptyCard'
-import noData from '../../assets/images/no-data.svg'
-import addNotesImg from '../../assets/images/add-notes.svg'
+import React, { useEffect, useState } from 'react';
+import Navbar from '../../components/Navbar/Navbar';
+import NoteCard from '../../components/Cards/NoteCard';
+import { MdAdd } from 'react-icons/md';
+import AddEditNotes from './AddEditNotes';
+import Modal from 'react-modal';
+import { useNavigate } from 'react-router-dom';
+import axiosInstance from '../../utils/axiosInstance';
+import Toast from '../../components/ToastMessage/Toast';
+import EmptyCard from '../../components/EmptyCard/EmptyCard';
+import noData from '../../assets/images/no-data.svg';
+import addNotesImg from '../../assets/images/add-notes.svg';
+import ClipLoader from "react-spinners/ClipLoader"; // Import the spinner
 
 const customStyles = {
   overlay: {
@@ -45,16 +46,18 @@ const Home = () => {
 
   const [userInfo, setUserInfo] = useState(null);
   const [allNotes, setAllNotes] = useState([]);
+  const [loading, setLoading] = useState(false); // Loading state
   const navigate = useNavigate();
   const [isSearch, setIsSearch] = useState(false);
-  const handleEdit = (noteDetails) => {
 
+  const handleEdit = (noteDetails) => {
     setOpenAddEditModal({
       isShown: true,
       data: noteDetails,
       type: 'edit',
     });
   };
+
   const handleCloseToast = () => {
     setShowToastMsg({
       isShown: false,
@@ -77,30 +80,33 @@ const Home = () => {
         setUserInfo(response.data.user);
       }
     } catch (error) {
-      if (error.response.status == 401) {
+      if (error.response.status === 401) {
         localStorage.clear();
         navigate('/login');
       }
     }
-  }
+  };
 
   const getAllNotes = async () => {
+    setLoading(true); // Set loading to true
     try {
       const response = await axiosInstance.get('/get-all-notes');
       if (response.data && response.data.notes) {
         setAllNotes(response.data.notes);
       }
     } catch (error) {
-      console.log('An unexpected error occured');
+      console.log('An unexpected error occurred');
+    } finally {
+      setLoading(false); // Set loading to false
     }
-  }
+  };
+
   const deleteNote = async (data) => {
     const noteId = data._id;
     try {
       const response = await axiosInstance.delete('/delete-note/' + noteId);
       if (response.data && !response.data.error) {
         showToastMessage('Note deleted successfully', 'delete');
-        // getAllNotes();
         setAllNotes(allNotes.filter(note => note._id !== noteId));
       }
     } catch (error) {
@@ -122,12 +128,12 @@ const Home = () => {
     } catch (error) {
       console.log(error);
     }
-  }
+  };
 
   const handleClearSearch = () => {
     setIsSearch(false);
     getAllNotes();
-  }
+  };
 
   const updateIsPinned = async (noteData) => {
     try {
@@ -142,34 +148,47 @@ const Home = () => {
     } catch (error) {
       console.log(error);
     }
-  }
+  };
 
   useEffect(() => {
     getAllNotes();
     getUserInfo();
   }, []);
+
   return (
     <>
       <Navbar userInfo={userInfo} onSearchNote={onSearchNote} handleClearSearch={handleClearSearch} />
       <div className='container mx-auto'>
-        {allNotes.length > 0 ? <div className='grid grid-cols-3 gap-4 mt-8'>
-          {allNotes.map((item, index) => (
-            <NoteCard
-              title={item.title}
-              key={item._id}
-              date={item.createdOn}
-              content={item.content}
-              tags={item.tags}
-              isPinned={item.isPinned}
-              onEdit={() => { handleEdit(item) }}
-              onDelete={() => { deleteNote(item) }}
-              onPinNote={() => { updateIsPinned(item) }}
-            />
-          ))}
-
-        </div> :
-          <EmptyCard imgSrc={isSearch ? noData : addNotesImg} message={isSearch ? 'Oops! No matching notes found' : 'Start writing your first note! Click the add button to jot down your thoughts, ideas, and reminders.'} />
-        }
+        {loading ? (
+          <div className="flex justify-center items-center h-full">
+            <ClipLoader size={50} color={"#123abc"} loading={loading} />
+          </div>
+        ) : (
+          <>
+            {allNotes.length > 0 ? (
+              <div className='grid grid-cols-3 gap-4 mt-8'>
+                {allNotes.map((item) => (
+                  <NoteCard
+                    title={item.title}
+                    key={item._id}
+                    date={item.createdOn}
+                    content={item.content}
+                    tags={item.tags}
+                    isPinned={item.isPinned}
+                    onEdit={() => { handleEdit(item) }}
+                    onDelete={() => { deleteNote(item) }}
+                    onPinNote={() => { updateIsPinned(item) }}
+                  />
+                ))}
+              </div>
+            ) : (
+              <EmptyCard
+                imgSrc={isSearch ? noData : addNotesImg}
+                message={isSearch ? 'Oops! No matching notes found' : 'Start writing your first note! Click the add button to jot down your thoughts, ideas, and reminders.'}
+              />
+            )}
+          </>
+        )}
       </div>
       <button className='w-16 h-16 flex items-center justify-center rounded-2xl bg-primary hover:bg-blue-600 absolute right-10 bottom-10'
         onClick={() => {
@@ -201,7 +220,6 @@ const Home = () => {
           getAllNotes={getAllNotes}
           showToastMessage={showToastMessage}
         />
-
       </Modal>
 
       <Toast
@@ -210,11 +228,8 @@ const Home = () => {
         type={showToastMsg.type}
         onClose={handleCloseToast}
       />
-
-
-
     </>
-  )
+  );
 }
 
-export default Home
+export default Home;
