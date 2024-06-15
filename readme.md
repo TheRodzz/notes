@@ -25,15 +25,15 @@ Check out the live demo [here](https://notes-frontend-murex.vercel.app/).
 1. **Clone the repository**
 
 ```bash
-git clone https://github.com/your-username/notes-management-app.git
-cd notes-management-app
+git clone https://github.com/TheRodzz/notes.git
+cd notes
 ```
 
 2. **Install dependencies for both frontend and backend**
 
 ```bash
 # For the frontend
-cd frontend
+cd frontend/notes
 npm install
 
 # For the backend
@@ -74,8 +74,6 @@ cd frontend/notes
 npm start
 ```
 
-The frontend will be running on `http://localhost:3000` and the backend on `http://localhost:5000`.
-
 ## Project Structure
 
 ```plaintext
@@ -88,22 +86,15 @@ notes-management-app/
 │      │   ├── assets/       # Images, icons, etc.
 │      │   ├── components/   # Reusable components
 │      │   ├── pages/        # Application pages
-│      │   ├── styles/       # CSS styles
 │      │   ├── utils/        # Utility functions
-│      │   ├── App.js
-│      │   ├── index.js
+│      │   ├── App.jsx
 │      └── package.json
 │
 ├── backend/               # Node.js backend
-│   ├── controllers/      # Route controllers
 │   ├── models/           # Mongoose models
-│   ├── routes/           # Express routes
-│   ├── middlewares/      # Middleware functions
-│   ├── utils/            # Utility functions
-│   ├── app.js
-│   ├── backend.js
+│   ├── index.js
+│   ├── utilities.js
 │   └── package.json
-│
 ├── README.md
 └── package.json
 ```
@@ -124,16 +115,13 @@ notes-management-app/
 - **Search Notes**: Find notes by title or content.
 - **Tagging**: Add and manage tags for notes.
 - **Pinning**: Pin notes to keep them at the top of the list.
-- **Dark Mode**: Toggle between light and dark themes.
 
 ## Planned Features
 
-- Real-time collaboration
-- Reminders and notifications
+- Dark Mode
 - Categories and folders
 - Rich text editing
 - File attachments
-- Analytics dashboard
 - Export notes
 
 ## Contributing
