@@ -37,7 +37,7 @@ cd frontend/notes
 npm install
 
 # For the backend
-cd ../backend
+cd ../../backend
 npm install
 ```
 
