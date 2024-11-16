@@ -8,16 +8,13 @@ WORKDIR /app
 COPY package*.json ./
 
 # Install dependencies
-RUN npm install
-
-# Run npm audit fix to resolve vulnerabilities (if any)
-RUN npm audit fix --force
+RUN npm install --audit=false
 
 # Copy the rest of the application code to the container
 COPY . .
 
 # Build the application
-RUN npm run build 
+# RUN npm run build 
 
 # Set the environment variable to serve the production build
 ENV NODE_ENV=deploy
