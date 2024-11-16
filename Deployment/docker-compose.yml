@@ -1,12 +1,30 @@
 version: '3.5'
 services:
   frontend:
-    image: vidhuarora/frontend
+    build:
+      context: ../frontend/notes
+      dockerfile: Dockerfile
     ports:
       - "5173:5173"
+    environment:
+      - VITE_BASE_URL=http://localhost:8000
     depends_on:
       - backend
+    networks:
+      - app-network
+
   backend:
-    image: vidhuarora/backend
+    build:
+      context: ../backend
+      dockerfile: Dockerfile
     ports:
       - "8000:8000"
+    environment:
+      - MONGODB_URI=mongodb+srv://testuser:testuser123@notesapp.rbmfola.mongodb.net/?retryWrites=true&w=majority&appName=notesapp
+      - NODE_ENV=deploy
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge

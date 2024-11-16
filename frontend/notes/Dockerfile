@@ -19,8 +19,10 @@ COPY . .
 # Set the environment variable to serve the production build
 ENV NODE_ENV=deploy
 
+ENV VITE_API_URL=http://localhost:8000
+
 # Expose port 3000 for the application to run
 EXPOSE 5173
 
 # Start the application
-CMD ["npm", "run", "dev"]
+CMD ["npm", "run", "dev", "--", "--host", "0.0.0.0"]
