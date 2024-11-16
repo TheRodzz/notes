@@ -5,7 +5,7 @@
   tasks:
     - name: Copy Docker Compose file from host machine to remote host
       copy:
-        src: ../Deployment/docker-compose.yml
+        src: docker-compose.yml
         dest: ./
         
     - name: Pull the Docker images specifed in docker-compose
