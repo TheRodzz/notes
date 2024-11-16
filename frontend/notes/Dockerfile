@@ -10,6 +10,9 @@ COPY package*.json ./
 # Install dependencies
 RUN npm install
 
+# Run npm audit fix to resolve vulnerabilities (if any)
+RUN npm audit fix --force
+
 # Copy the rest of the application code to the container
 COPY . .
 
