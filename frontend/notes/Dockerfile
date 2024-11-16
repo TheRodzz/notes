@@ -14,10 +14,10 @@ RUN npm install
 COPY . .
 
 # Build the application
-# RUN npm run build 
+RUN npm run build 
 
 # Set the environment variable to serve the production build
-# ENV NODE_ENV=production
+ENV NODE_ENV=deploy
 
 # Expose port 3000 for the application to run
 EXPOSE 3000
