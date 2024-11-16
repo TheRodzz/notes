@@ -20,7 +20,7 @@ COPY . .
 ENV NODE_ENV=deploy
 
 # Expose port 5000 for the application to run
-EXPOSE 5000
+EXPOSE 8000
 
 # Start the application
 CMD ["npm", "start"]
