@@ -14,4 +14,4 @@
         chdir: ./
 
     - name: Run the pulled Docker images in detached mode
-      command: docker-compose up -d --build
+      command: docker-compose up -d --all
