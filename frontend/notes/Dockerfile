@@ -14,7 +14,7 @@ RUN npm install --audit=false
 COPY . .
 
 # Build the application
-RUN npm run build 
+# RUN npm run build 
 
 # Set the environment variable to serve the production build
 ENV NODE_ENV=deploy
