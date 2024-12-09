@@ -19,7 +19,7 @@ COPY . .
 # Set the environment variable to serve the production build
 ENV NODE_ENV=deploy
 
-ENV ACCESS_TOKEN_SECRET=35563d2c9007fcddfa3203c859727e6718ee03176b28132c197262f179485c58
+ENV ACCESS_TOKEN_SECRET=${ACCESS_TOKEN_SECRET}
 
 # Expose port 5000 for the application to run
 EXPOSE 8000

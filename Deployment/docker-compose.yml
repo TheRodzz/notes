@@ -20,7 +20,7 @@ services:
     ports:
       - "8000:8000"
     environment:
-      - MONGODB_URI=mongodb+srv://testuser:testuser123@notesapp.rbmfola.mongodb.net/?retryWrites=true&w=majority&appName=notesapp
+      - MONGODB_URI=${ATLAS_URI}
       - NODE_ENV=deploy
     networks:
       - app-network
