@@ -11,7 +11,6 @@ mongoose.connect(connectionString)
 const User = require('./models/user.model');
 const Note = require('./models/note.model');
 // checking webhook
-//checking webhook
 const express = require('express');
 const cors = require("cors");
 const app = express();
