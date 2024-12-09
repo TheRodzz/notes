@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon index.js",
+    "test": "jest",
+    "start": "node index.js",
     "build-client": "npm install && npm run build",
     "build": "npm install && npm run build-client"
   },
@@ -18,7 +18,12 @@
     "mongoose": "^8.4.0",
     "nodemon": "^3.1.2"
   },
-  "devDependencies": {},
   "keywords": [],
-  "description": ""
+  "description": "",
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "jest-mock-extended": "^4.0.0-beta1",
+    "mongodb-memory-server": "^10.1.2",
+    "supertest": "^7.0.0"
+  }
 }

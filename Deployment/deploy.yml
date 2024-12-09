@@ -15,3 +15,4 @@
 
     - name: Run the pulled Docker images in detached mode
       command: docker-compose up -d --all
+      # command: docker-compose up --build

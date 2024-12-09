@@ -1,7 +1,8 @@
 {
   "dependencies": {
     "react-icons": "^5.2.1",
-    "vercel": "^34.2.5"
+    "vercel": "^34.2.5",
+    "winston": "^3.17.0"
   },
   "name": "notes",
   "version": "1.0.0",
